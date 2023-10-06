@@ -1,0 +1,167 @@
+App.js
+import React from 'react';
+import BlogList from './BlogList';
+function App() {
+return (
+<div className="App">
+<BlogList />
+</div>
+);
+}
+export default App;
+PostTitle.js
+import React from 'react';
+function PostTitle({ title }) {
+return <h2>{title}</h2>;
+}
+export default PostTitle;
+PostContent.js
+import React from 'react';
+function PostContent({ content }) {
+return <p>{content}</p>;
+}
+export default PostContent;
+PostAuthor.js
+import React from 'react';
+function PostAuthor({ author }) {
+return <p>Author: {author}</p>; }
+export default PostAuthor;
+BlogPost.js
+import React from 'react';
+import PostTitle from './PostTitle';
+import PostContent from './PostContent';
+import PostAuthor from './PostAuthor';
+function BlogPost({ title, content, author }) {
+return (
+<div className="blog-post">
+<PostTitle title={title} />
+<PostContent content={content} />
+<PostAuthor author={author} />
+</div>
+);
+}
+export default BlogPost;
+BlogList.js
+import React, { useState } from 'react';
+import BlogPost from './Blogpost';
+import quotes from './quotes.json';
+const blogPosts = [
+{
+title: 'Post 1 Title- A VISIT FROM THE GOON SQUAD',
+content:"It is easier to conjure the intellectual-literary atmosphere of
+an era when it is 30 years’ past than when it is a mere decade ago. It is hard
+to see 2010 right now, as we wait for time and the canon to true the lens, but
+I have a very clear sense-memory of revelation and exhilaration as I sped
+through David Mitchell’s epic-historical ghost story, The Thousand Autumns of
+Jacob de Zoet, wondering if the spirit of Robert Louis Stevenson had
+momentarily taken possession of Haruki Murakami. Here was a reminder that the
+world of a novel—in this case, a very detailed rendering of an 18th-century
+Dutch trading post in the port of Nagasaki—can be fuller, more vivid, than our
+own, that it can exist as a hothouse for the reader’s moral imagination.It is
+difficult to say what another 25 years will make of The Thousand Autumns of
+Jacob de Zoet. In the context of Mitchell’s more recent novels, and their
+space-operatic excesses, the plot of De Zoet seems worryingly baroque,
+show-offy, even. But it is clearly the work of the same writer who gave us the
+near-perfect coming-of-age novel, Black Swan Green, its language similarly
+precise and unexpected, all in aid of a story that seems somehow to tell
+itself, a true history that never quite happened.",
+author:"Jonny Diamond",
+},
+{
+title: 'Post 2Title- TRAIN DREAMS',
+content:" If I was tasked with proving that literary awards are a cruel
+joke and that life is nothing but a bleak and meaningless trudge toward the
+grave, Exhibit A would be what I have dubbed The Great Pulitzer Prize for
+Fiction Travesty of 2012. 2012 was, of course, the year the Pulitzer board
+(not the jury) decided that no book published in the previous twelve months
+merited the most prestigious honor in American letters, despite the fact that
+the trinity of finalists included Denis Johnson’s hallucinatory masterwork
+Train Dreams, as well as Karen Russell’s lushly brilliant debut novel
+Swamplandia! and David Foster Wallace’s unfinished opus The Pale King.Michael
+Cunningham in a rather wonderful letter to the New Yorker in the wake of the
+non-decision). Train Dreams may well be the 21st century’s most perfect
+novella (he said, having of course read them all…). It’s the incantatory
+story of a turn-of-the-century logger and railroad laborer, Robert Grainier,
+who loses his family to a wildfire and retreats deep into the woods of the
+Idaho panhandle as the country modernizes around him. Johnson’s spare,
+strange, elegiac prose conjures a world that feels both ancient and ephemeral,
+full of beauty and menace and deep sorrow. As Anthony Doerr wrote in his New
+York Times review: “His prose tiptoes a tightrope between peace and calamity,
+and beneath all of the novella’s best moments, Johnson runs twin strains of
+tenderness and the threat of violence.” An American epic in miniature, Train
+Dreams is a visionary portrait of soul untethered from civilization, a man
+stoically persevering on his own hermetic terms in the face of unimaginable
+tragedy. A haunted and haunting reverie.",
+author:"Dan Sheehan"
+},
+{
+title:'Post3 Title-THE TIGER’S WIFE ',
+content:" If I was tasked with proving that literary awards are a cruel
+joke and that life is nothing but a bleak and meaningless trudge toward the
+grave, Exhibit A would be what I have dubbed The Great Pulitzer Prize for
+Fiction Travesty of 2012. 2012 was, of course, the year the Pulitzer board
+(not the jury) decided that no book published in the previous twelve months
+merited the most prestigious honor in American letters, despite the fact that
+the trinity of finalists included Denis Johnson’s hallucinatory masterwork
+Train Dreams, as well as Karen Russell’s lushly brilliant debut novel
+Swamplandia! and David Foster Wallace’s unfinished opus The Pale King.Michael
+Cunningham in a rather wonderful letter to the New Yorker in the wake of the
+non-decision). Train Dreams may well be the 21st century’s most perfect
+novella (he said, having of course read them all…). It’s the incantatory
+story of a turn-of-the-century logger and railroad laborer, Robert Grainier,
+who loses his family to a wildfire and retreats deep into the woods of the
+Idaho panhandle as the country modernizes around him. Johnson’s spare,
+strange, elegiac prose conjures a world that feels both ancient and ephemeral,
+full of beauty and menace and deep sorrow. As Anthony Doerr wrote in his New
+York Times review: “His prose tiptoes a tightrope between peace and calamity,
+and beneath all of the novella’s best moments, Johnson runs twin strains of
+tenderness and the threat of violence.” An American epic in miniature, Train
+Dreams is a visionary portrait of soul untethered from civilization, a man
+stoically persevering on his own hermetic terms in the face of unimaginable
+tragedy. A haunted and haunting reverie.",
+author:"Olivia Rutigliano",
+}
+];
+function getRandomQuote() {
+const randomIndex = Math.floor(Math.random() * quotes.length);
+return quotes[randomIndex];
+}
+function BlogList() {
+const [selectedPost, setSelectedPost] = useState(null);
+const handlePostClick = (index) => {
+setSelectedPost(blogPosts[index]);
+};
+return (
+<div>
+<h1>Blog Posts</h1>
+<ul>
+{blogPosts.map((post, index) => (
+<li key={index} onClick={() => handlePostClick(index)}>
+{post.title}
+</li>
+))}
+</ul>
+{selectedPost && (
+<BlogPost
+title={selectedPost.title}
+content={`${getRandomQuote()} ${selectedPost.content}`}
+author={selectedPost.author}
+/>
+)}
+</div>
+);
+}
+export default BlogList;
+quotes.json
+[
+"Quote:A dead end is just a good place to turn around.— Naomi Judd",
+"Quote:Find out who you are and do it on purpose. — Dolly Parton",
+"Quote:The secret to getting ahead is getting started. — Mark
+Twain",
+"Quote:The time is always right to do what is right. — Martin Luther
+King Jr.",
+"Quote:Everything you want is on the other side of fear. — Jack
+Canfield" ]
+OUTPUT:
+Github Respirartory:
+Github : https://github.com/Sathish1004/sathish.github.io.git
